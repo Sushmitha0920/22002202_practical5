@@ -9,36 +9,36 @@ object LibraryManagement {
 
   def addBook(book: Book): Unit = {
     library += book
-    println(s"Book '${book.title}' added to the library.")
+    println(s"\nBook '${book.title}' added to the library.")
   }
 
   def removeBook(isbn: String): Unit = {
-    val bookToRemove = library.find(_.isbn == isbn)
-    bookToRemove match {
-      case Some(book) =>
+    val removeBook = library.find(_.isbn == isbn)
+    removeBook match {
+      case Some(book) => 
         library -= book
-        println(s"Book '${book.title}' removed from the library.")
-      case None =>
-        println(s"No book found with ISBN '$isbn'.")
+        println(s"\nBook '${book.title}' removed from the library.")
+      case None => 
+        println(s"\nNo book found with ISBN: $isbn")
     }
   }
 
-  def isBookInLibrary(isbn: String): Boolean = {
+  def isBookAvailable(isbn: String): Boolean = {
     library.exists(_.isbn == isbn)
   }
 
   def displayLibrary(): Unit = {
-    println("\nCurrent Library Collection:")
+    println("\nCurrent Library Collection : ")
     library.foreach(book => println(s"Title: ${book.title}, Author: ${book.author}, ISBN: ${book.isbn}"))
   }
 
   def searchBookByTitle(title: String): Unit = {
-    val foundBook = library.find(_.title.equalsIgnoreCase(title))
-    foundBook match {
-      case Some(book) =>
+    val searchBook = library.find(_.title.equalsIgnoreCase(title))
+    searchBook match {
+      case Some(book) => 
         println(s"\nBook found - Title: ${book.title}, Author: ${book.author}, ISBN: ${book.isbn}")
-      case None =>
-        println(s"\nNo book found with title '$title'.")
+      case None => 
+        println(s"\nNo book found with title: $title")
     }
   }
 
@@ -53,25 +53,25 @@ object LibraryManagement {
   }
 
   def main(args: Array[String]): Unit = {
-    // Initial display of library
+    //Initial display
     displayLibrary()
 
-    // Add a new book
-    val newBook = Book("Kittey", "Irumi Theekshana", "667788")
+    //Add a new book
+    val newBook = Book("Harry Potter", "J.K. Rowling", "667788")
     addBook(newBook)
     displayLibrary()
 
-    // Remove a book by ISBN
+    //Remove a book
     removeBook("123456")
     displayLibrary()
 
-    // Check if a book is in the library by ISBN
-    println(s"Is book with ISBN '1122334455' in the library? ${isBookInLibrary("1122334455")}")
+    //Check if a book available
+    println(s"\nIs book with ISBN '1122334455' in the library? ${isBookAvailable("1122334455")}")
 
-    // Search for a book by title
+    //Search for a book
     searchBookByTitle("Famous Five")
 
-    // Display all books by a specific author
+    //Display all books by an author
     displayBooksByAuthor("Sir Arthur Conan Doyle")
   }
 }
